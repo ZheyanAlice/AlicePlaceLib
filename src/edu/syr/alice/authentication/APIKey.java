@@ -6,17 +6,17 @@ package edu.syr.alice.authentication;
  */
 
 public class APIKey {
-    private String APIKEY;
+    private String APIKey;
 
-    public APIKey(String APIKEY) {
-        this.APIKEY = APIKEY;
+    public APIKey(String APIKey) {
+        this.APIKey = APIKey;
     }
 
     public String getAPIKey(){
-        return APIKEY;
+        return APIKey;
     }
 
-    public void setAPIKey(String APIKEY){
-        this.APIKEY = APIKEY;
+    public void setAPIKey(String APIKey){
+        this.APIKey = APIKey;
     }
 }
