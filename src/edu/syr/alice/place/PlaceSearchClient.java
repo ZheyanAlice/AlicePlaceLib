@@ -1,9 +1,16 @@
 package edu.syr.alice.place;
 
+import com.google.gson.Gson;
 import com.sun.tools.javac.util.Pair;
 import edu.syr.alice.authentication.KeyBundle;
 import edu.syr.alice.util.Util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -13,8 +20,10 @@ import java.util.List;
 
 public class PlaceSearchClient {
     private KeyBundle keyBundle;
+    private Gson gson;
 
     public PlaceSearchClient(KeyBundle keyBundle){
+        gson = new Gson();
         this.keyBundle = keyBundle;
     }
 
@@ -37,14 +46,33 @@ public class PlaceSearchClient {
         return null;
     }
 
-    //TODO
     public List<Place> nearbySearch(double lat, double lng, double radius, int limit, Pair<String, String>... extraParams){
         String requiredParams = String.format("key=%s&location=%f,%f&radius=%f", keyBundle.getGoogleApiKey().getAPIKey(),
                 lat, lng, radius);
-        String URL = buildURLForGooglePlace(Util.NEARBY_SEARCH, requiredParams, extraParams);
+        String urlString = buildURLForGooglePlace(Util.NEARBY_SEARCH, requiredParams, extraParams);
+        String line;
+        StringBuffer result = new StringBuffer();
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection  connection = (HttpURLConnection)url.openConnection();
+            connection.setRequestMethod("GET");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            while ((line = bufferedReader.readLine()) != null){
+                result.append(line);
+            }
+            bufferedReader.close();
 
-        return null;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        PlacesResult placesResult = gson.fromJson(result.toString(), PlacesResult.class);
+        return placesResult.getResults();
     }
+
+
 
     //TODO
     public List<Place> textSearch(){
