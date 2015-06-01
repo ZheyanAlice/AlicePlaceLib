@@ -1,0 +1,52 @@
+package edu.syr.alice.google.places;
+
+import java.util.List;
+import java.util.Set;
+
+public class Prediction {
+
+	private String description;
+	
+	private String id;
+	
+	private List<MatchedSubstring> matchedSubstrings;
+	
+	private String placeId;
+	
+	private String reference;
+	
+	private List<Term> terms;
+	
+	private Set<String> types;
+
+	public String getDescription( ) {
+		return this.description;
+	}
+
+	@Deprecated
+	public String getId( ) {
+		return this.id;
+	}
+
+	public List<MatchedSubstring> getMatchedSubstrings( ) {
+		return this.matchedSubstrings;
+	}
+
+	public String getPlaceId( ) {
+		return this.placeId;
+	}
+
+	@Deprecated
+	public String getReference( ) {
+		return this.reference;
+	}
+
+	public List<Term> getTerms( ) {
+		return this.terms;
+	}
+
+	public Set<String> getTypes( ) {
+		return this.types;
+	}
+	
+}
