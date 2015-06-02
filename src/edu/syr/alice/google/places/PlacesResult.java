@@ -1,17 +1,19 @@
 package edu.syr.alice.google.places;
 
+import edu.syr.alice.*;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 
-public class PlacesResult extends Result implements Iterable<Place> {
+public class PlacesResult extends Result implements Iterable<edu.syr.alice.Place> {
 		
 	private String nextPageToken;
 
-	private List<Place> results;
+	private List<edu.syr.alice.Place> results;
 		
-	public List<Place> asList( ) {
+	public List<edu.syr.alice.Place> asList( ) {
 		return Collections.unmodifiableList( this.results );
 	}
 
@@ -20,7 +22,7 @@ public class PlacesResult extends Result implements Iterable<Place> {
 	}
 	
 	@Override
-	public Iterator<Place> iterator( ) {
+	public Iterator<edu.syr.alice.Place> iterator( ) {
 		return this.results.iterator( );
 	}
 
