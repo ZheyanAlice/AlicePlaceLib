@@ -12,10 +12,12 @@ public class Main {
     public static void main(String[] args) {
         AlicePlaces places = new AlicePlaces("AIzaSyAsMBcYsYok8ZdAthNRbW2tcWB6TsTtrBw");
         PlacesResult result = places.searchNearby(40.10744f, -88.22724f, 5000, PlacesQueryOptions.create().keyword( "siebel center" ));
-
         System.out.println( result.getStatus( ) );
+
+        //Print place information
         for ( Place place : result ) {
-            System.out.println(place.getName() + " " + place.getGeometry().getLocation());
+            System.out.println(place.getName() + " at " + place.getGeometry().getLocation());
+            //Provide your own forecastio api key
             place.setForecastIOAPIKey("24877842d7e591427a3a2d767a13508e");
             FIOCurrently currently = place.getCurrentlyWeather();
             String [] f  = currently.get().getFieldsArray();
